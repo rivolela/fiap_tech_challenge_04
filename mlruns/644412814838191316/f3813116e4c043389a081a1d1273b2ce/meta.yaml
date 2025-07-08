@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/f3813116e4c043389a081a1d1273b2ce/artifacts
+end_time: 1751971312139
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: f3813116e4c043389a081a1d1273b2ce
+run_name: painted-shrimp-207
+run_uuid: f3813116e4c043389a081a1d1273b2ce
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751971194924
+status: 3
+tags: []
+user_id: calicojack

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/f0c0eb58396149a891c03fb228e21753/artifacts
+end_time: 1751970840921
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: f0c0eb58396149a891c03fb228e21753
+run_name: trusting-penguin-170
+run_uuid: f0c0eb58396149a891c03fb228e21753
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751970709708
+status: 3
+tags: []
+user_id: calicojack
