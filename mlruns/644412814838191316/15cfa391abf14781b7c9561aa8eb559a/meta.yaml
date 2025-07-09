@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/15cfa391abf14781b7c9561aa8eb559a/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: 15cfa391abf14781b7c9561aa8eb559a
+run_name: industrious-fowl-511
+run_uuid: 15cfa391abf14781b7c9561aa8eb559a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752056756874
+status: 1
+tags: []
+user_id: calicojack

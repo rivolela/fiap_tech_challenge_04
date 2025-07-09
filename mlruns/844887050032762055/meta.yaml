@@ -1,0 +1,6 @@
+artifact_location: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/844887050032762055
+creation_time: 1752074182584
+experiment_id: '844887050032762055'
+last_update_time: 1752074182584
+lifecycle_stage: active
+name: LSTM Real Data Regression

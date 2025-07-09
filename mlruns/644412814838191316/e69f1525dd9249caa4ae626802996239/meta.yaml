@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/e69f1525dd9249caa4ae626802996239/artifacts
+end_time: 1752071428394
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: e69f1525dd9249caa4ae626802996239
+run_name: clumsy-tern-984
+run_uuid: e69f1525dd9249caa4ae626802996239
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752071422815
+status: 4
+tags: []
+user_id: calicojack

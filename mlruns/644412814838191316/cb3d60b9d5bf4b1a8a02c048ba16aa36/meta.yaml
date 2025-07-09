@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/cb3d60b9d5bf4b1a8a02c048ba16aa36/artifacts
+end_time: 1752073113114
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: cb3d60b9d5bf4b1a8a02c048ba16aa36
+run_name: wistful-turtle-667
+run_uuid: cb3d60b9d5bf4b1a8a02c048ba16aa36
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752073113079
+status: 4
+tags: []
+user_id: calicojack

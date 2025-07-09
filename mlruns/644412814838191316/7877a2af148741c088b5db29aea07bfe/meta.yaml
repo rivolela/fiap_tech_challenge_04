@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/7877a2af148741c088b5db29aea07bfe/artifacts
+end_time: 1752072428103
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: 7877a2af148741c088b5db29aea07bfe
+run_name: intrigued-fly-223
+run_uuid: 7877a2af148741c088b5db29aea07bfe
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752072318505
+status: 4
+tags: []
+user_id: calicojack

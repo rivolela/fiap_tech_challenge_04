@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/014301837aa44d6c98538a1a7c2ae23d/artifacts
+end_time: 1752071672568
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: 014301837aa44d6c98538a1a7c2ae23d
+run_name: youthful-smelt-896
+run_uuid: 014301837aa44d6c98538a1a7c2ae23d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752071672519
+status: 4
+tags: []
+user_id: calicojack

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/67f9f81032d744c2ac8c63b51b123f17/artifacts
+end_time: 1752071645218
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: 67f9f81032d744c2ac8c63b51b123f17
+run_name: resilient-tern-253
+run_uuid: 67f9f81032d744c2ac8c63b51b123f17
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752071645167
+status: 4
+tags: []
+user_id: calicojack

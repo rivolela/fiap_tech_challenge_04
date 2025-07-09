@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/644412814838191316/37b896940f68439588a7901425123be7/artifacts
+end_time: 1752071766059
+entry_point_name: ''
+experiment_id: '644412814838191316'
+lifecycle_stage: active
+run_id: 37b896940f68439588a7901425123be7
+run_name: traveling-ox-488
+run_uuid: 37b896940f68439588a7901425123be7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752071766016
+status: 4
+tags: []
+user_id: calicojack
