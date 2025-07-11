@@ -12,12 +12,20 @@ import mlflow.pytorch
 class LSTMBasico(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, output_size):
         super(LSTMBasico, self).__init__()
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
-        self.fc = nn.Linear(hidden_size, output_size)
+        self.lstm = nn.LSTM(
+            input_size=input_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=0.2,  # Add dropout
+            bidirectional=True  # Make it bidirectional
+        )
+        # Adjust for bidirectional
+        self.fc = nn.Linear(hidden_size * 2, output_size)
     
     def forward(self, x):
         out, _ = self.lstm(x)
-        out = self.fc(out[:, -1, :])  # Última saída da sequência
+        out = self.fc(out[:, -1, :])  # Usar última saída da sequência
         return out
 
 
@@ -61,27 +69,54 @@ def carregar_dados():
     
     return df[colunas_features]
 
-def preparar_dados(df, sequence_length=6, test_size=0.2):
+def preparar_target_sequencial(df, coluna_alvo="preco_medio_close", horizonte=6):
+    # Create a copy of the original dataframe to prevent modifications
+    df_target = df[[coluna_alvo]].copy()
+    
+    # Create target columns with consistent names
+    target_cols = []
+    for i in range(horizonte):
+        col_name = f"lag_{i+1}_mes_{coluna_alvo}"
+        df_target[col_name] = df_target[coluna_alvo].shift(-i-1)
+        target_cols.append(col_name)
+    
+    # Drop rows with NaN values
+    df_target = df_target[target_cols].dropna()
+    
+    return df_target
+
+def preparar_dados(df, sequence_length=6, test_size=0.2, horizonte=6):
     """
-    Prepara os dados para treinamento do modelo LSTM.
+    Prepara os dados para treinamento do modelo LSTM com previsão sequencial.
     
     Args:
         df (pd.DataFrame): DataFrame com os dados carregados
         sequence_length (int): Tamanho da sequência para input do LSTM
         test_size (float): Proporção dos dados para teste (0.0 a 1.0)
+        horizonte (int): Número de passos futuros para prever
     
     Returns:
         tuple: (X_train, X_test, y_train, y_test, scaler)
     """
-    # Normalizar os dados
-    scaler = StandardScaler()
-    data_scaled = scaler.fit_transform(df)
+    # Prepare targets with consistent naming
+    df_target = preparar_target_sequencial(df, horizonte=horizonte)
+    
+    # Convert DataFrame to numpy arrays before scaling
+    features_array = df.values
+    target_array = df_target.values
+    
+    # Use separate scalers for features and targets
+    feature_scaler = StandardScaler()
+    target_scaler = StandardScaler()
+    
+    features_scaled = feature_scaler.fit_transform(features_array)
+    target_scaled = target_scaler.fit_transform(target_array)
     
     # Criar sequências
     X, y = [], []
-    for i in range(len(data_scaled) - sequence_length):
-        X.append(data_scaled[i:(i + sequence_length)])
-        y.append(data_scaled[i + sequence_length, 0])  # índice 0 = preco_medio_close
+    for i in range(len(features_scaled) - sequence_length - horizonte + 1):
+        X.append(features_scaled[i:(i + sequence_length)])
+        y.append(target_scaled[i])
     
     X = np.array(X)
     y = np.array(y)
@@ -94,10 +129,10 @@ def preparar_dados(df, sequence_length=6, test_size=0.2):
     # Converter para tensores PyTorch
     X_train = torch.FloatTensor(X_train)
     X_test = torch.FloatTensor(X_test)
-    y_train = torch.FloatTensor(y_train).reshape(-1, 1)
-    y_test = torch.FloatTensor(y_test).reshape(-1, 1)
+    y_train = torch.FloatTensor(y_train)
+    y_test = torch.FloatTensor(y_test)
     
-    return X_train, X_test, y_train, y_test, scaler
+    return X_train, X_test, y_train, y_test, target_scaler
 
 def treinar_modelo(modelo, X_treino, y_treino, X_teste, y_teste, 
                   epochs=100, learning_rate=0.01, device='cpu'):
@@ -202,41 +237,31 @@ def treinar_modelo(modelo, X_treino, y_treino, X_teste, y_teste,
     return perdas_treino, perdas_teste
 
 def avaliar_modelo(modelo, X_teste, y_teste, scaler=None):
-    """
-    Avalia o modelo LSTM no conjunto de teste.
-    
-    Args:
-        modelo (LSTMBasico): Modelo LSTM treinado
-        X_teste (torch.Tensor): Dados de teste
-        y_teste (torch.Tensor): Labels verdadeiros
-        scaler (StandardScaler, optional): Scaler usado para desnormalizar os dados
-    
-    Returns:
-        dict: Métricas de avaliação (MSE, MAE, R2) e previsões
-    """
-    # Coloca modelo em modo de avaliação
+    """Avalia o modelo LSTM no conjunto de teste."""
     modelo.eval()
     
-    # Faz previsões
     with torch.no_grad():
         previsoes = modelo(X_teste)
     
-    # Converte tensores para numpy
+    # Convert tensors to numpy
     y_true = y_teste.cpu().numpy()
     y_pred = previsoes.cpu().numpy()
     
-    # Se fornecido scaler, desnormaliza os dados
+    # If scaler provided, denormalize predictions
     if scaler is not None:
-        # Reshape para formato esperado pelo scaler
-        y_true = scaler.inverse_transform(np.hstack([y_true, np.zeros((y_true.shape[0], X_teste.shape[2]-1))]))[: , 0:1]
-        y_pred = scaler.inverse_transform(np.hstack([y_pred, np.zeros((y_pred.shape[0], X_teste.shape[2]-1))]))[: , 0:1]
+        # Reshape data to match original feature dimensions
+        y_true = y_true.reshape(-1, 6)  # 6 is the horizonte value
+        y_pred = y_pred.reshape(-1, 6)
+        
+        # Inverse transform each sequence
+        y_true = scaler.inverse_transform(y_true)
+        y_pred = scaler.inverse_transform(y_pred)
     
-    # Calcula métricas
-    mse = np.mean((y_true - y_pred) ** 2)
-    mae = np.mean(np.abs(y_true - y_pred))
-    r2 = 1 - np.sum((y_true - y_pred) ** 2) / np.sum((y_true - y_true.mean()) ** 2)
+    # Calculate metrics using first prediction only
+    mse = np.mean((y_true[:, 0] - y_pred[:, 0]) ** 2)
+    mae = np.mean(np.abs(y_true[:, 0] - y_pred[:, 0]))
+    r2 = 1 - np.sum((y_true[:, 0] - y_pred[:, 0]) ** 2) / np.sum((y_true[:, 0] - y_true[:, 0].mean()) ** 2)
     
-    # Imprime resultados
     print(f"\nResultados da Avaliação:")
     print(f"MSE: {mse:.4f}")
     print(f"MAE: {mae:.4f}")
@@ -266,8 +291,9 @@ def main():
         print("\nPreparando dados para treinamento...")
         X_treino, X_teste, y_treino, y_teste, scaler = preparar_dados(
             df, 
-            sequence_length=6, 
-            test_size=0.2
+            sequence_length=12,  # Increase from 6 to 12
+            test_size=0.2,
+            horizonte=6
         )
         print("Dados preparados com sucesso.")
         print(f"Shape dos dados de treino: {X_treino.shape}")
@@ -280,9 +306,9 @@ def main():
         
         modelo = LSTMBasico(
             input_size=11,
-            hidden_size=32,
-            num_layers=2,
-            output_size=1
+            hidden_size=128,  # Increase from 64
+            num_layers=2,     
+            output_size=6
         )
         
         perdas_treino, perdas_teste = treinar_modelo(
@@ -291,8 +317,8 @@ def main():
             y_treino=y_treino,
             X_teste=X_teste,
             y_teste=y_teste,
-            epochs=100,
-            learning_rate=0.01,
+            epochs=300,          # Increase epochs
+            learning_rate=0.004, # Lower learning rate
             device=device
         )
         
