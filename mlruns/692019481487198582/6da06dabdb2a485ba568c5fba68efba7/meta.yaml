@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/6da06dabdb2a485ba568c5fba68efba7/artifacts
+end_time: 1752659161846
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 6da06dabdb2a485ba568c5fba68efba7
+run_name: peaceful-stoat-6
+run_uuid: 6da06dabdb2a485ba568c5fba68efba7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752659150369
+status: 3
+tags: []
+user_id: calicojack

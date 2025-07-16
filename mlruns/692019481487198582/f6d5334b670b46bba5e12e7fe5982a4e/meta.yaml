@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/f6d5334b670b46bba5e12e7fe5982a4e/artifacts
+end_time: 1752655568769
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: f6d5334b670b46bba5e12e7fe5982a4e
+run_name: dashing-cat-749
+run_uuid: f6d5334b670b46bba5e12e7fe5982a4e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752655551646
+status: 3
+tags: []
+user_id: calicojack

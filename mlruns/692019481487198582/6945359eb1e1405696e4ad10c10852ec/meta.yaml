@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/6945359eb1e1405696e4ad10c10852ec/artifacts
+end_time: 1752659608389
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 6945359eb1e1405696e4ad10c10852ec
+run_name: flawless-colt-991
+run_uuid: 6945359eb1e1405696e4ad10c10852ec
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752659605558
+status: 4
+tags: []
+user_id: calicojack

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/aad48a79aff24c5699323c37151816cd/artifacts
+end_time: 1752659697192
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: aad48a79aff24c5699323c37151816cd
+run_name: adventurous-goat-866
+run_uuid: aad48a79aff24c5699323c37151816cd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752659682215
+status: 3
+tags: []
+user_id: calicojack

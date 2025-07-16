@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/e609d3e9670642a8844fb007ba59a0be/artifacts
+end_time: 1752658116649
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: e609d3e9670642a8844fb007ba59a0be
+run_name: resilient-gnat-159
+run_uuid: e609d3e9670642a8844fb007ba59a0be
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752658101976
+status: 3
+tags: []
+user_id: calicojack

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/0eb71a74d6784e87b85e874ec70bfa2c/artifacts
+end_time: 1752659370712
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 0eb71a74d6784e87b85e874ec70bfa2c
+run_name: sassy-trout-743
+run_uuid: 0eb71a74d6784e87b85e874ec70bfa2c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752659359241
+status: 3
+tags: []
+user_id: calicojack

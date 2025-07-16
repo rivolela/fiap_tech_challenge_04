@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/6ae1b0ea8f3f4ddfac68705320053d00/artifacts
+end_time: 1752657492914
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 6ae1b0ea8f3f4ddfac68705320053d00
+run_name: polite-ant-395
+run_uuid: 6ae1b0ea8f3f4ddfac68705320053d00
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752657492881
+status: 4
+tags: []
+user_id: calicojack

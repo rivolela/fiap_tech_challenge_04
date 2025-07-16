@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/30cb1aa1eaa440ef8fcc7d5b2e2aeefd/artifacts
+end_time: 1752658809597
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 30cb1aa1eaa440ef8fcc7d5b2e2aeefd
+run_name: masked-fox-512
+run_uuid: 30cb1aa1eaa440ef8fcc7d5b2e2aeefd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752658798674
+status: 3
+tags: []
+user_id: calicojack

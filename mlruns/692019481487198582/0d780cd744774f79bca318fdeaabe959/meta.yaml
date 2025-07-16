@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/0d780cd744774f79bca318fdeaabe959/artifacts
+end_time: 1752658013692
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 0d780cd744774f79bca318fdeaabe959
+run_name: efficient-conch-964
+run_uuid: 0d780cd744774f79bca318fdeaabe959
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752657993512
+status: 3
+tags: []
+user_id: calicojack

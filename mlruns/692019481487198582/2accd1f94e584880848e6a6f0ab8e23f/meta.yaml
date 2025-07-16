@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/2accd1f94e584880848e6a6f0ab8e23f/artifacts
+end_time: 1752658306488
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 2accd1f94e584880848e6a6f0ab8e23f
+run_name: unleashed-snail-848
+run_uuid: 2accd1f94e584880848e6a6f0ab8e23f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752658293181
+status: 3
+tags: []
+user_id: calicojack
