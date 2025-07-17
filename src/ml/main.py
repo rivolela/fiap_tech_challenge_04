@@ -5,44 +5,99 @@ import os
 # Add the src directory to Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from ml.training_pipeline import TrainingPipeline
+def setup_logging():
+    """Configure logging to ensure all messages are visible."""
+    # Remove any existing handlers
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    
+    # Create formatter
+    formatter = logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(message)s'
+    )
+    
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(formatter)
+    
+    # File handler
+    file_handler = logging.FileHandler('training.log')
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(formatter)
+    
+    # Configure root logger
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+    root_logger.addHandler(console_handler)
+    root_logger.addHandler(file_handler)
+    
+    # Test logging
+    test_logger = logging.getLogger(__name__)
+    test_logger.info("✓ Sistema de logging configurado com sucesso!")
 
-# CONFIGURAÇÃO DO LOGGING - ESSENCIAL PARA VER OS LOGS
-logging.basicConfig(
-    level=logging.INFO,  # Define o nível mínimo de log
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),  # Mostra no console
-        logging.FileHandler('training.log')  # Salva em arquivo
-    ]
-)
-
-# Configurar logger raiz para garantir que todos os módulos sejam exibidos
-root_logger = logging.getLogger()
-root_logger.setLevel(logging.INFO)
+# Setup logging immediately
+setup_logging()
+logger = logging.getLogger(__name__)
 
 def main():
     """Main entry point for LSTM training."""
-    logger = logging.getLogger(__name__)
     logger.info("=== INICIANDO PIPELINE DE TREINAMENTO LSTM ===")
     
-    config = {
-        'sequence_length': 24,
-        'horizon': 6,
-        'train_split': 0.8,
-        'hidden_size': 32,
-        'num_layers': 1,  # Fixed: removed the 'e' after the comma
-        'dropout': 0.2,
-        'learning_rate': 0.001,
-        'weight_decay': 0.01,
-        'scheduler_patience': 5,
-        'epochs': 200
-    }
+    # Check what files are available
+    ml_dir = os.path.dirname(__file__)
+    available_files = [f for f in os.listdir(ml_dir) if f.endswith('.py')]
+    logger.info(f"Arquivos Python disponíveis: {available_files}")
     
-    pipeline = TrainingPipeline(config)
-    pipeline.run_training()
+    # Check for core directory
+    core_dir = os.path.join(ml_dir, 'core')
+    if os.path.exists(core_dir):
+        core_files = [f for f in os.listdir(core_dir) if f.endswith('.py')]
+        logger.info(f"Arquivos em core/: {core_files}")
     
-    logger.info("=== PIPELINE CONCLUÍDO COM SUCESSO ===")
+    try:
+        # Try to import the training pipeline from core
+        logger.info("Tentando importar training_pipeline.py...")
+        from ml.core.training_pipeline import TrainingPipeline
+        
+        config = {
+            'sequence_length': 24,
+            'horizon': 6,
+            'train_split': 0.8,
+            'hidden_size': 32,
+            'num_layers': 1,
+            'dropout': 0.2,
+            'learning_rate': 0.001,
+            'weight_decay': 0.01,
+            'scheduler_patience': 5,
+            'epochs': 200
+        }
+        
+        pipeline = TrainingPipeline(config)
+        pipeline.run_training()
+        
+        logger.info("=== PIPELINE CONCLUÍDO COM SUCESSO ===")
+        
+    except ImportError as e:
+        logger.error(f"Erro ao importar training_pipeline: {e}")
+        
+        # Try fallback to lstm2.py if it exists
+        try:
+            if 'lstm2.py' in available_files:
+                logger.info("Tentando usar lstm2.py como fallback...")
+                from ml.lstm2 import train
+                train()
+                logger.info("=== TREINAMENTO CONCLUÍDO COM lstm2.py ===")
+            else:
+                raise ImportError("lstm2.py também não encontrado")
+                
+        except ImportError as e2:
+            logger.error(f"Erro ao importar lstm2.py: {e2}")
+            raise
+            
+    except Exception as e:
+        logger.error(f"Erro durante o treinamento: {e}")
+        raise
 
 if __name__ == '__main__':
     main()

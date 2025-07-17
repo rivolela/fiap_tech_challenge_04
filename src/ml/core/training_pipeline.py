@@ -7,10 +7,10 @@ from typing import Dict, Any
 import logging
 
 from .data_handler import DataHandler
-from .lstm_model import EnhancedLSTM
+from ml.models.lstm_model import EnhancedLSTM
 from .model_trainer import ModelTrainer
-from .metrics_calculator import MetricsCalculator
-from .visualizer import ModelVisualizer
+from ml.utils.metrics_calculator import MetricsCalculator
+from ml.utils.visualizer import ModelVisualizer
 
 logger = logging.getLogger(__name__)
 
