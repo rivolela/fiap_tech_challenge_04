@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/f2bde3cd619342579f043b4adab82582/artifacts
+end_time: 1752741927205
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: f2bde3cd619342579f043b4adab82582
+run_name: bouncy-wasp-793
+run_uuid: f2bde3cd619342579f043b4adab82582
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752741915181
+status: 3
+tags: []
+user_id: calicojack

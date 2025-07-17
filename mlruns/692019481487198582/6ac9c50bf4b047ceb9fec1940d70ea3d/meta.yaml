@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/6ac9c50bf4b047ceb9fec1940d70ea3d/artifacts
+end_time: 1752742659566
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 6ac9c50bf4b047ceb9fec1940d70ea3d
+run_name: exultant-fawn-744
+run_uuid: 6ac9c50bf4b047ceb9fec1940d70ea3d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752742646928
+status: 3
+tags: []
+user_id: calicojack

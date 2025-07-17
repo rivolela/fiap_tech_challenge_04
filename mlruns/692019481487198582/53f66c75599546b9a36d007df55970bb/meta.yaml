@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/53f66c75599546b9a36d007df55970bb/artifacts
+end_time: 1752661781203
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 53f66c75599546b9a36d007df55970bb
+run_name: sneaky-smelt-4
+run_uuid: 53f66c75599546b9a36d007df55970bb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752661769351
+status: 3
+tags: []
+user_id: calicojack

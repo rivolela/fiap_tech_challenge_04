@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/1e7847e41d8a488d803027183f8f200d/artifacts
+end_time: 1752742911951
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 1e7847e41d8a488d803027183f8f200d
+run_name: thundering-mare-939
+run_uuid: 1e7847e41d8a488d803027183f8f200d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752742899554
+status: 3
+tags: []
+user_id: calicojack

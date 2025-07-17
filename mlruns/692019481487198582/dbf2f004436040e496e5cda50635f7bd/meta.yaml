@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/dbf2f004436040e496e5cda50635f7bd/artifacts
+end_time: 1752742878625
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: dbf2f004436040e496e5cda50635f7bd
+run_name: intrigued-mouse-394
+run_uuid: dbf2f004436040e496e5cda50635f7bd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752742866881
+status: 3
+tags: []
+user_id: calicojack

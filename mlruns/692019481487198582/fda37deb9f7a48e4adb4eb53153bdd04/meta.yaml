@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/fda37deb9f7a48e4adb4eb53153bdd04/artifacts
+end_time: 1752741952305
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: fda37deb9f7a48e4adb4eb53153bdd04
+run_name: trusting-bat-604
+run_uuid: fda37deb9f7a48e4adb4eb53153bdd04
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752741937397
+status: 3
+tags: []
+user_id: calicojack

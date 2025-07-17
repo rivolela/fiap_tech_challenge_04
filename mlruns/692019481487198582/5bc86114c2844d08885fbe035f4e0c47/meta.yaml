@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/5bc86114c2844d08885fbe035f4e0c47/artifacts
+end_time: 1752741987149
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 5bc86114c2844d08885fbe035f4e0c47
+run_name: incongruous-cat-884
+run_uuid: 5bc86114c2844d08885fbe035f4e0c47
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752741969617
+status: 3
+tags: []
+user_id: calicojack
