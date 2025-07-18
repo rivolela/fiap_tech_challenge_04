@@ -1,0 +1,13 @@
+[
+  "preco_medio_close",
+  "lag_1_mes_preco_medio_close",
+  "lag_2_mes_preco_medio_close",
+  "lag_3_mes_preco_medio_close",
+  "lag_4_mes_preco_medio_close",
+  "lag_5_mes_preco_medio_close",
+  "lag_6_mes_preco_medio_close",
+  "media_movel_6_meses_preco_medio_close",
+  "desvio_padrao_movel_6_meses_preco_medio_close",
+  "valor_minimo_6_meses_preco_medio_close",
+  "valor_maximo_6_meses_preco_medio_close"
+]

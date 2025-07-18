@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/c6ab5f3dbc404b939bbe6a59eaabc0ff/artifacts
+end_time: 1752746944130
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: c6ab5f3dbc404b939bbe6a59eaabc0ff
+run_name: youthful-bass-411
+run_uuid: c6ab5f3dbc404b939bbe6a59eaabc0ff
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752746932858
+status: 3
+tags: []
+user_id: calicojack

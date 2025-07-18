@@ -1,6 +1,7 @@
 import torch
 import mlflow
 import mlflow.pytorch
+import mlflow.models
 import pandas as pd
 import os
 from typing import Dict, Any
@@ -42,7 +43,7 @@ class TrainingPipeline:
             
             # Create and train model
             model = self._create_model(df.shape[1])
-            trainer = ModelTrainer(model, self.device)
+            trainer = ModelTrainer(model, str(self.device))
             trainer.setup_training(
                 self.config['learning_rate'],
                 self.config['weight_decay'],
@@ -119,5 +120,36 @@ class TrainingPipeline:
             input_example=input_example.numpy()
         )
         
+        # Export model for deployment
+        self._export_model_for_deployment(model)
+        
         logger.info(f"Results saved to: {os.path.abspath('./outputs/')}")
+    
+    def _export_model_for_deployment(self, model: torch.nn.Module) -> None:
+        """Export model package for deployment."""
+        try:
+            # Import the exporter - using relative import
+            import sys
+            import os
+            sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            from utils.model_exporter import ModelExporter
+            
+            # Export complete model package
+            export_path = ModelExporter.export_complete_model(
+                model=model,
+                scaler=self.data_handler.scaler,
+                feature_columns=self.data_handler.feature_columns
+            )
+            
+            # Log export path to MLflow
+            mlflow.log_param("export_path", export_path)
+            
+            logger.info(f"✅ Model exported for deployment to: {export_path}")
+            
+        except ImportError as e:
+            logger.warning(f"Could not import ModelExporter: {e}")
+            logger.info("Skipping model export for deployment")
+        except Exception as e:
+            logger.error(f"Failed to export model: {e}")
+            logger.info("Model training completed, but export failed.")
         

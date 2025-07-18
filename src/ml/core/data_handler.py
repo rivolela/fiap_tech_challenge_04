@@ -102,3 +102,37 @@ class DataHandler:
         dummy_array = np.zeros((predictions.shape[0], self.scaler.n_features_in_))
         dummy_array[:, 0] = predictions
         return self.scaler.inverse_transform(dummy_array)[:, 0]
+    
+    def save_model_components(self, model, model_path: str = "./outputs/model_export/"):
+        """Save model and preprocessing components for deployment."""
+        import torch
+        import pickle
+        import os
+        
+        os.makedirs(model_path, exist_ok=True)
+        
+        # Save PyTorch model
+        torch.save(model.state_dict(), os.path.join(model_path, 'lstm_model.pth'))
+        
+        # Save model architecture info
+        model_info = {
+            'input_size': model.lstm.input_size,
+            'hidden_size': model.lstm.hidden_size,
+            'num_layers': model.lstm.num_layers,
+            'output_size': model.fc.out_features
+        }
+        
+        with open(os.path.join(model_path, 'model_config.json'), 'w') as f:
+            import json
+            json.dump(model_info, f, indent=2)
+        
+        # Save scaler
+        with open(os.path.join(model_path, 'scaler.pkl'), 'wb') as f:
+            pickle.dump(self.scaler, f)
+        
+        # Save feature columns
+        with open(os.path.join(model_path, 'feature_columns.json'), 'w') as f:
+            json.dump(self.feature_columns, f, indent=2)
+        
+        logger.info(f"Model components saved to: {model_path}")
+        return model_path
