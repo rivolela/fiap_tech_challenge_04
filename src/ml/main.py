@@ -81,19 +81,6 @@ def main():
     except ImportError as e:
         logger.error(f"Erro ao importar training_pipeline: {e}")
         
-        # Try fallback to lstm2.py if it exists
-        try:
-            if 'lstm2.py' in available_files:
-                logger.info("Tentando usar lstm2.py como fallback...")
-                from ml.lstm2 import train
-                train()
-                logger.info("=== TREINAMENTO CONCLUÍDO COM lstm2.py ===")
-            else:
-                raise ImportError("lstm2.py também não encontrado")
-                
-        except ImportError as e2:
-            logger.error(f"Erro ao importar lstm2.py: {e2}")
-            raise
             
     except Exception as e:
         logger.error(f"Erro durante o treinamento: {e}")

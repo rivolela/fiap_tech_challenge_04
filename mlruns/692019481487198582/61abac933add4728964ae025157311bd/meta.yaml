@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/61abac933add4728964ae025157311bd/artifacts
+end_time: 1753008505437
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 61abac933add4728964ae025157311bd
+run_name: fortunate-bug-423
+run_uuid: 61abac933add4728964ae025157311bd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753008494486
+status: 3
+tags: []
+user_id: calicojack

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/769a29e753a14fc591e0a0d2a92115ab/artifacts
+end_time: 1753017766552
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 769a29e753a14fc591e0a0d2a92115ab
+run_name: stylish-kite-302
+run_uuid: 769a29e753a14fc591e0a0d2a92115ab
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753017755270
+status: 3
+tags: []
+user_id: calicojack

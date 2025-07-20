@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/d732b9f7931e4dfd971a5120c74e3655/artifacts
+end_time: 1753002541308
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: d732b9f7931e4dfd971a5120c74e3655
+run_name: whimsical-robin-907
+run_uuid: d732b9f7931e4dfd971a5120c74e3655
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753002530145
+status: 3
+tags: []
+user_id: calicojack

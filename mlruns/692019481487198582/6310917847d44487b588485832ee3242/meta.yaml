@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/6310917847d44487b588485832ee3242/artifacts
+end_time: 1753017819375
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 6310917847d44487b588485832ee3242
+run_name: orderly-flea-902
+run_uuid: 6310917847d44487b588485832ee3242
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753017808157
+status: 3
+tags: []
+user_id: calicojack

@@ -1,8 +1,78 @@
 # FIAP Tech Challenge 04
 
-## Description
+## 📊 Description
 
 Modelo preditivo de redes neural Long Short Term Memory (LSTM) para predizer o valor de fechamento da bolsa de valores da ação BBAS3.
+
+## 📁 Project Structure
+
+```
+fiap_tech_challenge_04/
+├── 📁 app/                     # Application code
+│   └── api/                    # Flask API endpoints
+├── 📁 src/                     # Source code (ML logic)
+│   └── ml/                     # Machine Learning modules
+├── 📁 scripts/                 # Utility scripts
+├── 📁 tests/                   # Test files
+├── 📁 docs/                    # Documentation
+├── 📁 configs/                 # Configuration files
+├── 📁 data/                    # Data storage
+├── 📁 outputs/                 # Results and exports
+├── 📁 notebooks/               # Jupyter notebooks
+├── main.py                     # Main entry point
+├── production_inference.py     # Production inference script
+├── Makefile                    # Project commands
+└── requirements.txt            # Dependencies
+```
+
+## 🚀 Quick Start
+
+### Option 1: Interactive Menu
+```bash
+python main.py
+```
+
+### Option 2: Using Makefile
+```bash
+# See all available commands
+make help
+
+# Setup environment
+make setup
+
+# Run Flask API
+make api
+
+# Run production inference
+make inference
+
+# Run tests
+make test
+```
+
+## 🔧 Usage Options
+
+### 1. Flask API Server
+```bash
+make api
+# or
+python app/api/main.py
+```
+Access at: http://localhost:5000
+
+### 2. Production Inference
+```bash
+make inference
+# or
+python production_inference.py
+```
+
+### 3. Model Export Demo
+```bash
+make demo
+# or
+python scripts/demo_model_export.py
+```
 
 ## ETL Architecture
 
