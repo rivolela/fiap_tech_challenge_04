@@ -11,9 +11,10 @@ import sys
 import logging
 from pathlib import Path
 
-# Add src to Python path
-project_root = Path(__file__).parent.parent
+# Add src and project root to Python path
+project_root = Path(__file__).parent
 src_path = project_root / "src"
+sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(src_path))
 
 # Configure logging
@@ -29,8 +30,8 @@ def main():
     try:
         logger.info("🚀 Starting FIAP LSTM API on Render...")
         
-        # Import Flask app
-        from api.main import create_app
+        # Import Flask app from app.py (not main.py)
+        from api.app import create_app
         
         # Create Flask app
         app = create_app()
