@@ -50,6 +50,25 @@ DEBUG=true PORT=8081 python scripts/run_api_server.py
 MODEL_PATH=./custom/model/path python scripts/run_api_server.py
 ```
 
+## 🌐 Deploy em Produção (Render)
+
+Para deployment na plataforma Render, consulte o guia completo:
+
+```bash
+# Guia detalhado de deployment no Render
+cat RENDER_DEPLOYMENT_GUIDE.md
+```
+
+**Arquivos necessários para Render:**
+- `render.yaml` - Configuração do serviço
+- `render_start.py` - Entrypoint otimizado para Render  
+- `Dockerfile.render` - Container Docker (opcional)
+
+**Deploy rápido:**
+1. Conecte seu repositório GitHub ao Render
+2. Configure as variáveis de ambiente
+3. Use `render.yaml` como blueprint
+
 ## 🔄 Pipeline Completo (ETL + Treinamento + API)
 
 ### 1. Executar ETL (Extração e Transformação de Dados)

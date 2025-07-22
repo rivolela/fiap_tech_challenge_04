@@ -6,7 +6,7 @@ Simple test for the LSTM API
 import requests
 import json
 
-def test_api(base_url="http://localhost:5000"):
+def test_api(base_url="http://localhost:8081"):
     """Test the API endpoints"""
     print("🧪 Testing LSTM API")
     print("=" * 30)
