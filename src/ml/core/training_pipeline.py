@@ -15,6 +15,9 @@ from ml.utils.visualizer import ModelVisualizer
 
 logger = logging.getLogger(__name__)
 
+# Add safe global for your custom LSTM class
+torch.serialization.add_safe_globals([EnhancedLSTM])
+
 class TrainingPipeline:
     """Main training pipeline orchestrating all components."""
     
@@ -152,4 +155,3 @@ class TrainingPipeline:
         except Exception as e:
             logger.error(f"Failed to export model: {e}")
             logger.info("Model training completed, but export failed.")
-        

@@ -1,21 +1,42 @@
-"""LSTM Model Service Module with enhanced error handling"""
+"""LSTM Model Service Module with enhanced error handling and monitoring"""
 import os
 import sys
 import pickle
 import json
 import torch
+import torch.nn as nn
+from ml.models.lstm_model import EnhancedLSTM
 import pandas as pd
 import numpy as np
 import logging
 from typing import List, Dict, Any, Union
 from .config import APIConfig
 
+
 # Add the project root to Python path to resolve 'ml' module imports
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
+# Import monitoring
+try:
+    from ..monitoring import performance_monitor
+    from ..monitoring.middleware import monitor_model_prediction
+    MONITORING_AVAILABLE = True
+except ImportError:
+    MONITORING_AVAILABLE = False
+    def monitor_model_prediction(func):
+        return func  # No-op decorator if monitoring not available
+
 logger = logging.getLogger(__name__)
+
+# Add safe globals for secure model loading
+torch.serialization.add_safe_globals([
+    EnhancedLSTM,
+    torch.nn.modules.rnn.LSTM,
+    torch.nn.modules.linear.Linear,
+    torch.nn.modules.dropout.Dropout
+])
 
 class LSTMModelService:
     """Service to handle LSTM model loading and predictions"""
@@ -236,6 +257,7 @@ class LSTMModelService:
             if 'model' in root.lower() or any('model' in f.lower() for f in files):
                 logger.info(f"  {root}: {files}")
     
+    @monitor_model_prediction
     def predict(self, data: Union[List[Dict], Dict], forecast_horizon: int = 6) -> List[float]:
         """Make LSTM predictions with enhanced error handling"""
         if not self.is_loaded:
@@ -379,3 +401,4 @@ class LSTMModelService:
             
         except Exception as e:
             return False, f"Validation error: {str(e)}"
+

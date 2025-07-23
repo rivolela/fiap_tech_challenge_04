@@ -37,7 +37,7 @@ def main():
         app = create_app()
         
         # Get port from environment (Render uses PORT env var)
-        port = int(os.getenv('PORT', 10000))
+        port = int(os.getenv('PORT', 8000))
         
         # Render deployment info
         logger.info(f"📊 Model Path: {os.getenv('MODEL_PATH', './outputs/model_export/')}")

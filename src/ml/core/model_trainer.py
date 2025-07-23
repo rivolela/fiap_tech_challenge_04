@@ -5,8 +5,12 @@ import mlflow
 import mlflow.pytorch
 from typing import Dict, Any, Tuple, Optional
 import logging
+from ml.models.lstm_model import EnhancedLSTM
 
 logger = logging.getLogger(__name__)
+
+# Add safe global for your custom LSTM class
+torch.serialization.add_safe_globals([EnhancedLSTM])
 
 class ModelTrainer:
     """Handles LSTM model training and evaluation."""
@@ -16,7 +20,7 @@ class ModelTrainer:
         self.device = device
         self.criterion = nn.MSELoss()
         self.optimizer: Optional[torch.optim.Optimizer] = None
-        self.scheduler: Optional[torch.optim.lr_scheduler._LRScheduler] = None
+        self.scheduler: Optional[torch.optim.lr_scheduler._LRScheduler | torch.optim.lr_scheduler.ReduceLROnPlateau | None] = None
         
     def setup_training(self, learning_rate: float = 0.001, weight_decay: float = 0.01, 
                       scheduler_patience: int = 5) -> None:

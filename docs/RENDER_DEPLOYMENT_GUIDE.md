@@ -13,6 +13,13 @@ Complete guide for deploying your LSTM stock prediction API on Render platform.
 ### Step 1: Prepare Your Repository
 
 ```bash
+# Ensure all dependencies are in requirements.txt
+# (Flask, PyTorch, scikit-learn, etc.)
+pip install -r requirements.txt
+
+# Test locally first
+python render_start.py
+
 # Ensure all files are committed
 git add .
 git commit -m "feat: Add Render deployment configuration"
@@ -128,9 +135,10 @@ Your repository should contain:
 
 ### Common Issues
 
-1. **Import Errors**:
+1. **Import Errors / Missing Dependencies**:
+   - Ensure `requirements.txt` includes all packages: Flask, PyTorch, scikit-learn, numpy, joblib
+   - Test locally: `pip install -r requirements.txt && python render_start.py`
    - Check PYTHONPATH environment variable
-   - Ensure all dependencies in requirements.txt
 
 2. **Model Loading Failed**:
    - Verify model files exist in `outputs/model_export/`

@@ -12,7 +12,6 @@ from .utils import (
     parse_prediction_request,
     get_api_info
 )
-from api.monitoring_routes import monitoring_bp
 
 # Add project root to Python path
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -40,12 +39,12 @@ def create_app() -> Flask:
     # Initialize monitoring middleware
     if MONITORING_AVAILABLE:
         monitoring = MonitoringMiddleware(app)
+        # Register monitoring blueprint
+        monitoring_bp = get_monitoring_blueprint()
+        app.register_blueprint(monitoring_bp)
         logger.info("Sistema de monitoramento ativado")
     else:
         logger.warning("Sistema de monitoramento não disponível")
-    
-    # Register monitoring blueprint
-    app.register_blueprint(monitoring_bp)
     
     # Initialize model service
     model_service = LSTMModelService()
