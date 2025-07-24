@@ -13,6 +13,7 @@ from typing import Any, Dict, Optional
 from flask import request, Response, g
 
 from . import performance_monitor
+from .drift_monitor import DriftMonitor
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ class MonitoringMiddleware:
     
     def __init__(self, app=None):
         self.app = app
+        self.drift_monitor = DriftMonitor()
         if app is not None:
             self.init_app(app)
     
@@ -86,6 +88,21 @@ class MonitoringMiddleware:
                 status='error'
             ).inc()
             logger.error(f"Exceção no request {endpoint}: {exception}")
+    
+    def process_prediction(self, features, prediction, actual=None):
+        """Processa e monitora predições do modelo"""
+        try:
+            # Adicionar ao monitor de drift
+            self.drift_monitor.add_prediction(features, prediction, actual)
+            
+            # A cada N predições, gerar um relatório
+            if len(self.drift_monitor.current_predictions) >= 100:
+                self.drift_monitor.generate_report()
+                self.drift_monitor.reset_current_data()
+        
+        except Exception as e:
+            logger.error(f"Erro ao processar predição: {e}")
+            raise e
 
 
 def monitor_endpoint(endpoint_name: Optional[str] = None):

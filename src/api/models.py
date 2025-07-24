@@ -5,7 +5,7 @@ import pickle
 import json
 import torch
 import torch.nn as nn
-from ml.models.lstm_model import EnhancedLSTM
+from src.ml.models.lstm_model import EnhancedLSTM
 import pandas as pd
 import numpy as np
 import logging

@@ -8,7 +8,8 @@ class APIConfig:
     
     # Server Configuration
     HOST = os.environ.get('HOST', '0.0.0.0')
-    PORT = int(os.environ.get('PORT', 8081))  # Changed default port to avoid conflicts
+    PORT = int(os.getenv('PORT', 8000))  # Use port 8000 for local development
+    API_PORT = PORT  # Alias for compatibility
     DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
     
     # Model Configuration

@@ -3,16 +3,16 @@ import os
 import sys
 import logging
 from flask import Flask, request
-from .config import APIConfig
-from .models import LSTMModelService
-from .utils import (
+from src.api.config import APIConfig
+from src.api.models import LSTMModelService
+from src.api.utils import (
     create_success_response, 
     create_error_response, 
     load_predictions_csv,
     parse_prediction_request,
     get_api_info
 )
-from api.monitoring_routes import monitoring_bp
+from .monitoring_routes import monitoring_bp, record_prediction, record_prediction_for_drift
 
 # Add project root to Python path
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -81,6 +81,9 @@ def create_app() -> Flask:
     @monitor_endpoint('predict')
     def predict():
         """Make LSTM predictions"""
+        import time
+        start_time = time.time()
+        
         try:
             # Load model if not loaded
             if not model_service.is_loaded:
@@ -107,6 +110,10 @@ def create_app() -> Flask:
             if error_msg:
                 return create_error_response(error_msg, 400, "invalid_request_format")
             
+            # Check if parsing was successful
+            if historical_data is None or forecast_horizon is None:
+                return create_error_response("Invalid request data format", 400, "invalid_data")
+            
             # Validate input data
             is_valid, validation_msg = model_service.validate_input_data(historical_data)
             if not is_valid:
@@ -117,15 +124,41 @@ def create_app() -> Flask:
             # Make prediction
             predictions = model_service.predict(historical_data, forecast_horizon)
             
-            logger.info(f"Prediction successful: {len(predictions)} predictions generated")
+            # Calculate processing time
+            processing_time_ms = (time.time() - start_time) * 1000
+            
+            logger.info(f"Prediction successful: {len(predictions)} predictions generated in {processing_time_ms:.2f}ms")
+            
+            # Record prediction for monitoring
+            try:
+                # Record basic prediction metrics
+                record_prediction(processing_time_ms)
+                
+                # Record for drift monitoring - use the last historical record and first prediction
+                if historical_data and predictions:
+                    record_prediction_for_drift(
+                        historical_data[-1], 
+                        predictions[0] if isinstance(predictions, list) else predictions
+                    )
+            except Exception as monitoring_error:
+                logger.warning(f"Failed to record prediction metrics: {monitoring_error}")
+            
+            # Get model configuration safely
+            sequence_length = 24  # default
+            features_used = 0
+            if hasattr(model_service, 'config') and model_service.config:
+                sequence_length = model_service.config.get('sequence_length', 24)
+            if hasattr(model_service, 'feature_columns') and model_service.feature_columns:
+                features_used = len(model_service.feature_columns)
             
             prediction_data = {
                 'predictions': predictions,
                 'forecast_horizon': forecast_horizon,
                 'input_records': len(historical_data),
+                'processing_time_ms': round(processing_time_ms, 2),
                 'model_info': {
-                    'sequence_length': model_service.config.get('sequence_length', 24),
-                    'features_used': len(model_service.feature_columns)
+                    'sequence_length': sequence_length,
+                    'features_used': features_used
                 }
             }
             
@@ -254,6 +287,11 @@ def run_app():
     print("  POST /predict    - Make predictions")
     print("  GET  /model/info - Model details")
     print("  GET  /predictions - Get saved predictions")
+    if MONITORING_AVAILABLE:
+        print("  GET  /monitoring - Monitoring dashboard")
+    else:
+        print("  Monitoring not available")
+    print("📂 Predictions file: ", APIConfig.PREDICTIONS_PATH)
     print("=" * 60)
     
     try:

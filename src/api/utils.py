@@ -100,7 +100,13 @@ def get_api_info(model_service) -> Dict[str, Any]:
             "/health": "GET - Health check",
             "/predict": "POST - Make stock price predictions",
             "/model/info": "GET - Model configuration details",
-            "/predictions": "GET - Get saved predictions"
+            "/predictions": "GET - Get saved predictions",
+            "/monitoring": "GET - Monitoring dashboard",
+            "/monitoring/dashboard": "GET - Visual monitoring interface",
+            "/monitoring/health": "GET - System health status",
+            "/monitoring/stats": "GET - Performance statistics",
+            "/monitoring/metrics": "GET - Prometheus metrics",
+            "/monitoring/drift-report": "GET - Data drift analysis"
         },
         "usage": {
             "predict_endpoint": "/predict",
