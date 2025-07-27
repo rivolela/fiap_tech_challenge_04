@@ -159,6 +159,48 @@ O modelo LSTM desenvolvido apresentou os seguintes resultados:
 - MAE: 0.98 para previsões de 6 meses
 - Precisão de direção (alta/baixa): 68%
 
+## 🌐 API Endpoints e Documentação
+
+A API está disponível em produção através do seguinte endpoint:
+```
+https://fiap-tech-challenge-04.onrender.com
+```
+
+### Endpoints Disponíveis
+
+| Endpoint | Método | Descrição | Parâmetros | Resposta |
+|----------|--------|-----------|------------|----------|
+| `/predict` | GET | Obtém previsão para os próximos 6 meses | Nenhum | JSON com valores previstos para cada mês |
+| `/predict/custom` | POST | Previsão personalizada baseada em parâmetros | `{"ticker": "string", "months": integer, "features": {}}` | JSON com previsões personalizadas |
+| `/health` | GET | Verificação de saúde da API | Nenhum | Status da API e do modelo |
+| `/metrics` | GET | Métricas de performance do modelo | Nenhum | JSON com métricas atuais |
+| `/drift/report` | GET | Último relatório de drift de dados | `?days=30` (opcional) | JSON com análise de drift |
+
+### Exemplos de Uso
+
+```bash
+# Obter previsão padrão
+curl https://fiap-tech-challenge-04.onrender.com/predict
+
+# Obter previsão personalizada
+curl -X POST https://fiap-tech-challenge-04.onrender.com/predict/custom \
+  -H "Content-Type: application/json" \
+  -d '{"ticker": "BBAS3", "months": 3}'
+
+# Verificar saúde da API
+curl https://fiap-tech-challenge-04.onrender.com/health
+```
+
+### Autenticação
+
+A API utiliza autenticação por token. Para acessar endpoints protegidos, inclua no cabeçalho HTTP:
+
+```
+Authorization: Bearer {seu_token_api}
+```
+
+Tokens de acesso podem ser solicitados através do contato com a equipe de desenvolvimento.
+
 ## 🔗 Referências
 
 - [PyTorch Documentation](https://pytorch.org/docs/stable/index.html)
