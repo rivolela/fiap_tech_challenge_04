@@ -12,13 +12,21 @@ from functools import wraps
 from typing import Any, Dict, Optional
 from flask import request, Response, g
 
-from . import performance_monitor
-from .drift_monitor import DriftMonitor
-from .data_collector import DataCollector
-from .drift_detector import DriftDetector  
-from .report_generator import ReportGenerator
+from src.monitoring.core.monitor import ModelPerformanceMonitor
+from src.monitoring.drift_monitor import DriftMonitor
+from src.monitoring.data_collector import DataCollector
+from src.monitoring.drift_detector import DriftDetector  
+from src.monitoring.report_generator import ReportGenerator
 
 logger = logging.getLogger(__name__)
+
+# Obtém ou cria uma instância do monitor de performance
+try:
+    from src.monitoring import performance_monitor
+except ImportError:
+    # Criar uma instância padrão se não existir
+    logger.warning("Criando nova instância do ModelPerformanceMonitor")
+    performance_monitor = ModelPerformanceMonitor()
 
 
 class MonitoringMiddleware:

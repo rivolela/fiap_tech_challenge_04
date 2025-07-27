@@ -290,32 +290,3 @@ class DriftMonitor:
                 logger.warning(f"Erro ao calcular métricas de drift: {e}")
         
         return metrics
-
-
-# Exemplo simples de uso
-if __name__ == "__main__":
-    # Setup logging
-    logging.basicConfig(level=logging.INFO)
-    
-    # Criar monitor
-    monitor = DriftMonitor()
-    
-    # Adicionar algumas predições simuladas
-    for i in range(100):
-        features = {
-            "preco_medio_close": 100.0 + i * 0.5,
-            "lag_1_mes_preco_medio_close": 99.0 + i * 0.5,
-            "lag_2_mes_preco_medio_close": 98.0 + i * 0.5,
-        }
-        prediction = 105.0 + i * 0.6  # Predição simulada
-        actual = 105.0 + i * 0.6 + np.random.normal(0, 2)  # Valor real simulado
-        
-        monitor.add_prediction(features, prediction, actual)
-    
-    # Gerar relatório
-    report_path = monitor.generate_report()
-    print(f"Relatório gerado: {report_path}")
-    
-    # Mostrar métricas básicas
-    metrics = monitor.get_metrics()
-    print(f"Métricas de drift: {metrics}")

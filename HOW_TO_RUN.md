@@ -323,7 +323,7 @@ tail -f logs/training/etl.log
 # Logs do treinamento
 tail -f logs/training/training.log
 
-# Logs de monitoramento
+# Logs de monitoramento (sistema modular atualizado)
 tail -f logs/monitoring/monitoring.log
 
 # Logs de predição
@@ -344,7 +344,7 @@ lsof -i :5000
 
 #### 1. Detecção de Drift de Dados
 ```bash
-# Executar detecção de drift nos dados
+# Executar detecção de drift nos dados (com módulo reorganizado)
 python scripts/setup_monitoring.py --check-drift
 
 # Ver último relatório de drift
@@ -356,13 +356,13 @@ python scripts/setup_monitoring.py --show-report
 
 #### 2. Monitoramento de Performance
 ```bash
-# Verificar métricas atuais do modelo
+# Verificar métricas atuais do modelo (usando Prometheus integrado)
 curl http://localhost:8081/metrics
 
-# Comparar performance atual com baseline
+# Comparar performance atual com baseline (compatível com nova estrutura)
 python scripts/setup_monitoring.py --performance-check
 
-# Gerar dashboard de métricas
+# Gerar dashboard de métricas (usando novo módulo de integração)
 python scripts/setup_monitoring.py --generate-dashboard
 ```
 
@@ -373,7 +373,7 @@ python scripts/setup_monitoring.py --configure-alerts \
   --mse-threshold 0.5 \
   --drift-threshold 0.3
 
-# Testar sistema de alertas
+# Testar sistema de alertas (suporta nova estrutura de monitoramento)
 python scripts/setup_monitoring.py --test-alerts
 
 # Ver histórico de alertas
@@ -382,16 +382,16 @@ cat outputs/monitoring/alert_history.json
 
 #### 4. Interface de Monitoramento
 ```bash
-# Iniciar interface web de monitoramento
+# Iniciar interface web de monitoramento (atualizado para nova estrutura)
 python scripts/setup_monitoring.py --start-dashboard
 
-# Ou acessar via endpoint da API
+# Ou acessar via endpoint da API (integrado com o novo módulo de monitoramento)
 curl http://localhost:8081/monitoring/dashboard
 ```
 
 #### 5. Retraining Automático
 ```bash
-# Configurar critérios para retreinamento
+# Configurar critérios para retreinamento (compatível com nova estrutura)
 python scripts/setup_monitoring.py --setup-retraining \
   --performance-threshold 0.8 \
   --drift-threshold-critical 0.7
@@ -480,6 +480,24 @@ tech_challenge_04/
 │   │   ├── __init__.py
 │   │   ├── etl_pipeline.py  ← Classe principal ETL
 │   │   └── run_etl.py       ← Script executor
+│   ├── monitoring/          ← Sistema de Monitoramento (Nova estrutura)
+│   │   ├── __init__.py      ← Ponto de entrada principal
+│   │   ├── core/            ← Componentes principais
+│   │   │   ├── metrics.py   ← Definições de métricas
+│   │   │   ├── monitor.py   ← Monitor de performance
+│   │   │   └── system.py    ← Métricas do sistema
+│   │   ├── drift/           ← Detecção de drift
+│   │   │   ├── collector.py ← Coleta de dados
+│   │   │   ├── detector.py  ← Algoritmos de detecção
+│   │   │   ├── monitor.py   ← Monitor de drift
+│   │   │   └── report.py    ← Geração de relatórios
+│   │   ├── integrations/    ← Integrações externas
+│   │   │   ├── dashboard.py ← Interface de visualização
+│   │   │   ├── flask_middleware.py ← Middleware Flask
+│   │   │   └── prometheus.py ← Métricas Prometheus
+│   │   └── utils/           ← Utilitários
+│   │       ├── decorators.py ← Decoradores para monitoramento
+│   │       └── metrics.py   ← Funções auxiliares
 │   └── ml/                  ← Machine Learning
 │       ├── config.py        ← Configurações do modelo
 │       ├── models/          ← Definições dos modelos
@@ -507,8 +525,10 @@ tech_challenge_04/
 1. **Verificar logs** em `outputs/` e arquivos `.log`
 2. **Confirmar estrutura** - API deve estar em `src/api/`
 3. **Testar componentes isoladamente** - ETL → ML → API
-4. **Verificar dependências** - `pip list | grep -E "(torch|flask|pyspark)"`
+4. **Verificar dependências** - `pip list | grep -E "(torch|flask|pyspark|prometheus)"`
 5. **Validar arquivos do modelo** - `ls -la outputs/model_export/`
+6. **Testar sistema de monitoramento** - `python scripts/setup_monitoring.py --test-monitoring`
+7. **Verificar estrutura de monitoramento** - O sistema de monitoramento foi reorganizado em: `src/monitoring/`
 
 **Contatos:**
 - 📧 Logs detalhados estão em `lstm_api.log`
