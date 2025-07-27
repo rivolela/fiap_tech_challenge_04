@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/cbbbb6a9533b49c59ebe9a07dc9805b6/artifacts
+end_time: 1753629280637
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: cbbbb6a9533b49c59ebe9a07dc9805b6
+run_name: unleashed-hound-441
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753629270619
+status: 3
+tags: []
+user_id: calicojack

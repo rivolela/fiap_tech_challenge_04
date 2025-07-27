@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/calicojack/Development/4MLET/tech_challenge_04/mlruns/692019481487198582/7a5f31bec9d54defae797c1818d245e8/artifacts
+end_time: 1753630048774
+entry_point_name: ''
+experiment_id: '692019481487198582'
+lifecycle_stage: active
+run_id: 7a5f31bec9d54defae797c1818d245e8
+run_name: likeable-hen-415
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753630038719
+status: 3
+tags: []
+user_id: calicojack
