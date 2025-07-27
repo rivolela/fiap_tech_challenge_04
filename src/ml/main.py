@@ -5,36 +5,32 @@ import os
 # Add the src directory to Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
+# Import the centralized logging configuration
+from utils.logging_config import get_training_logger
+
 def setup_logging():
-    """Configure logging to ensure all messages are visible."""
+    """Configure logging to use the centralized training logger."""
     # Remove any existing handlers
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
     
-    # Create formatter
-    formatter = logging.Formatter(
-        '%(asctime)s - %(levelname)s - %(message)s'
-    )
+    # Get the centralized training logger
+    logger = get_training_logger('ml.training')
     
-    # Console handler
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setLevel(logging.INFO)
-    console_handler.setFormatter(formatter)
+    # Set the root logger level
+    logging.root.setLevel(logging.INFO)
     
-    # File handler
-    file_handler = logging.FileHandler('training.log')
-    file_handler.setLevel(logging.INFO)
-    file_handler.setFormatter(formatter)
+    # Set the ml.training logger as the default
+    return logger
     
     # Configure root logger
-    root_logger = logging.getLogger()
-    root_logger.setLevel(logging.INFO)
-    root_logger.addHandler(console_handler)
-    root_logger.addHandler(file_handler)
-    
-    # Test logging
-    test_logger = logging.getLogger(__name__)
-    test_logger.info("✓ Sistema de logging configurado com sucesso!")
+    # Return the configured logger
+    logger = get_training_logger('ml.training')
+    logger.info("✓ Sistema de logging configurado com sucesso!")
+    return logger
+
+# Setup logging immediately
+logger = setup_logging()
 
 # Setup logging immediately
 setup_logging()
