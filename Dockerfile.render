@@ -5,6 +5,8 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app
+ENV LOG_LEVEL=INFO
+ENV LOG_RETENTION_DAYS=30
 
 # Set work directory
 WORKDIR /app
@@ -14,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     gcc \
     g++ \
+    cron \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
@@ -26,11 +29,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Create necessary directories
-RUN mkdir -p /app/logs /app/outputs/model_export
+RUN mkdir -p /app/logs/{api,training,monitoring,prediction} /app/outputs/model_export /app/outputs/drift_reports
 
 # Create a non-root user
 RUN adduser --disabled-password --gecos '' appuser && \
     chown -R appuser:appuser /app
+
+# Define volumes for logs and output data
+VOLUME ["/app/logs", "/app/outputs"]
+
 USER appuser
 
 # Expose the port that Render will use
@@ -40,5 +47,6 @@ EXPOSE $PORT
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD curl -f http://localhost:$PORT/health || exit 1
 
-# Start command - Render provides PORT environment variable
-CMD ["sh", "-c", "python src/api/main.py"]
+# Use entrypoint script to initialize logging and start application
+# Render provides PORT environment variable
+CMD ["scripts/entrypoint.sh"]

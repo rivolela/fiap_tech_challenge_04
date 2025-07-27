@@ -17,11 +17,23 @@ src_path = project_root / "src"
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(src_path))
 
-# Configure logging
-logging.basicConfig(
-    level=os.getenv('LOG_LEVEL', 'INFO'),
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+# Configure logging using our custom config
+try:
+    from src.utils.logging_config import get_api_logger
+    logger = get_api_logger("render_startup")
+    logger.info("Usando configuração de logging personalizada")
+except ImportError:
+    # Fallback if our custom logging module isn't available
+    logging.basicConfig(
+        level=getattr(logging, os.getenv("LOG_LEVEL", "INFO")),
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=[
+            logging.FileHandler("logs/api/lstm_api.log"),
+            logging.StreamHandler()
+        ]
+    )
+    logger = logging.getLogger("render_startup")
+    logger.warning("Usando configuração de logging padrão (módulo personalizado não encontrado)")
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +43,10 @@ def main():
         logger.info("🚀 Starting FIAP LSTM API on Render...")
         
         # Import Flask app from app.py (not main.py)
-        from api.app import create_app
+        try:
+            from src.api.app import create_app
+        except ImportError:
+            from api.app import create_app
         
         # Create Flask app
         app = create_app()

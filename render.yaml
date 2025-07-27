@@ -16,6 +16,8 @@ services:
         value: "./outputs/predictions.csv"
       - key: LOG_LEVEL
         value: "INFO"
+      - key: LOG_RETENTION_DAYS
+        value: "30"
       - key: PYTHONPATH
         value: "/opt/render/project/src"
     healthCheckPath: /health
