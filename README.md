@@ -74,7 +74,7 @@ python -m pytest tests/
 python render_start.py
 ```
 
-## � Pipeline de Desenvolvimento
+## 📊 Pipeline de Desenvolvimento
 
 ### 1. Coleta e Pré-processamento dos Dados
 
