@@ -128,6 +128,18 @@ O modelo LSTM foi desenvolvido utilizando PyTorch, com a seguinte arquitetura:
 - Análise visual de previsões vs. valores reais
 - Teste de robustez em diferentes cenários de mercado
 
+#### 2.4 Machine Learning
+```bash
+# Treinar modelo LSTM
+python src/ml/main.py
+
+# Verificar modelo exportado
+ls -la outputs/model_export/
+
+# Ver métricas de treinamento
+cat outputs/training_metrics.json
+```
+
 ### 3. Salvamento e Exportação do Modelo
 
 O modelo treinado é salvo em formato otimizado para produção:
@@ -135,6 +147,8 @@ O modelo treinado é salvo em formato otimizado para produção:
 - Serialização do scaler para normalização consistente dos dados
 - Exportação de metadados do modelo (features, hiperparâmetros)
 - Configurações necessárias para inferência em ambiente de produção
+
+
 
 ### 4. Deploy do Modelo
 
