@@ -19,6 +19,10 @@ from datetime import datetime
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
+from src.monitoring import performance_monitor
+
+performance_monitor.start_monitoring()
+
 def install_monitoring_dependencies():
     """Instala as dependências de monitoramento"""
     print("📦 Instalando dependências de monitoramento...")
@@ -715,3 +719,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def test_prediction():
+    # Exemplo: simule uma entrada e chame o modelo
+    input_data = ...  # Monte um input válido (ex: pd.DataFrame({...}))
+    prediction = seu_modelo.predict(input_data)
+    performance_monitor.record_prediction(
+        input_data=input_data,
+        prediction=prediction,
+        duration_ms=...,  # calcule o tempo
+        confidence=...,   # se aplicável
+        metadata={"auto_test": True}
+    )
+
+test_prediction()

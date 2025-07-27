@@ -169,6 +169,27 @@ ls -la outputs/model_export/
 - Cache para otimizar requisições repetidas
 - Balanceamento de carga para escalabilidade
 
+#### 4.3 Docker e Deploy Containerizado
+
+O projeto inclui um `Dockerfile.render` pronto para deploy em ambientes como Render.com ou qualquer serviço compatível com Docker. Esse arquivo define todas as dependências, variáveis de ambiente e comandos necessários para rodar a API e o sistema de monitoramento em produção.
+
+**Principais comandos Docker:**
+
+```bash
+# Build da imagem Docker
+docker build -f Dockerfile.render -t fiap-lstm-api:latest .
+
+# Rodar o container localmente
+# (mapeando a porta 8081 e a pasta outputs para persistência)
+docker run -p 8081:8081 -v $(pwd)/outputs:/app/outputs fiap-lstm-api:latest
+
+# Exemplo de uso com Docker Compose
+# (se houver docker-compose.yml no projeto)
+docker-compose up --build
+```
+
+> O Dockerfile já está configurado para expor as portas necessárias, instalar dependências e definir o entrypoint correto para produção.
+
 ### 5. Escalabilidade e Monitoramento
 
 #### 5.1 Sistema de Monitoramento
@@ -205,7 +226,7 @@ https://fiap-tech-challenge-04.onrender.com
 | `/predict/custom` | POST | Previsão personalizada baseada em parâmetros | `{"ticker": "string", "months": integer, "features": {}}` | JSON com previsões personalizadas |
 | `/health` | GET | Verificação de saúde da API | Nenhum | Status da API e do modelo |
 | `/metrics` | GET | Métricas de performance do modelo | Nenhum | JSON com métricas atuais |
-| `/drift/report` | GET | Último relatório de drift de dados | `?days=30` (opcional) | JSON com análise de drift |
+| `/monitoring/dashboard` | GET | Dashboard web de monitoramento do modelo e sistema | Nenhum | HTML interativo com métricas e logs |
 
 ### Exemplos de Uso
 
