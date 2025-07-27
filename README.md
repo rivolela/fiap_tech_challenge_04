@@ -22,7 +22,8 @@ fiap_tech_challenge_04/
 │   ├── api/                    # Endpoints da API
 │   ├── etl/                    # Processamento de dados
 │   ├── ml/                     # Lógica de Machine Learning
-│   └── monitoring/             # Monitoramento de drift e performance
+│   ├── monitoring/             # Monitoramento de drift e performance
+│   └── utils/                  # Utilitários compartilhados
 ├── 📁 scripts/                 # Scripts utilitários
 │   ├── production_inference.py # Script de inferência em produção
 │   ├── setup_monitoring.py    # Configuração do sistema de monitoramento
@@ -38,6 +39,11 @@ fiap_tech_challenge_04/
 │   └── drift_reports/          # Relatórios de monitoramento
 ├── 📁 notebooks/               # Jupyter notebooks para experimentação
 ├── render_start.py             # Ponto de entrada para o deploy
+├── 📁 logs/                    # Arquivos de log organizados por categoria
+│   ├── api/                    # Logs da API
+│   ├── training/               # Logs de treinamento
+│   ├── monitoring/             # Logs de monitoramento
+│   └── prediction/             # Logs de predição
 ├── Dockerfile.render           # Docker para deploy
 └── requirements.txt            # Dependências do projeto
 ```
