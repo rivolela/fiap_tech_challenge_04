@@ -315,13 +315,19 @@ pip install -r requirements.txt --force-reinstall
 ### Logs da Aplicação
 ```bash
 # Logs da API
-tail -f lstm_api.log
+tail -f logs/api/api.log
 
 # Logs do ETL
-tail -f outputs/etl.log
+tail -f logs/training/etl.log
 
 # Logs do treinamento
-tail -f outputs/training.log
+tail -f logs/training/training.log
+
+# Logs de monitoramento
+tail -f logs/monitoring/monitoring.log
+
+# Logs de predição
+tail -f logs/prediction/prediction.log
 ```
 
 ### Verificar Status do Sistema
@@ -332,6 +338,69 @@ ps aux | grep python
 # Verificar portas em uso
 lsof -i :8081
 lsof -i :5000
+```
+
+### Monitoramento do Modelo
+
+#### 1. Detecção de Drift de Dados
+```bash
+# Executar detecção de drift nos dados
+python scripts/setup_monitoring.py --check-drift
+
+# Ver último relatório de drift
+cat outputs/drift_reports/latest_drift_report.json
+
+# Visualizar relatório completo (abre no navegador)
+python scripts/setup_monitoring.py --show-report
+```
+
+#### 2. Monitoramento de Performance
+```bash
+# Verificar métricas atuais do modelo
+curl http://localhost:8081/metrics
+
+# Comparar performance atual com baseline
+python scripts/setup_monitoring.py --performance-check
+
+# Gerar dashboard de métricas
+python scripts/setup_monitoring.py --generate-dashboard
+```
+
+#### 3. Alertas e Notificações
+```bash
+# Configurar limites de alerta
+python scripts/setup_monitoring.py --configure-alerts \
+  --mse-threshold 0.5 \
+  --drift-threshold 0.3
+
+# Testar sistema de alertas
+python scripts/setup_monitoring.py --test-alerts
+
+# Ver histórico de alertas
+cat outputs/monitoring/alert_history.json
+```
+
+#### 4. Interface de Monitoramento
+```bash
+# Iniciar interface web de monitoramento
+python scripts/setup_monitoring.py --start-dashboard
+
+# Ou acessar via endpoint da API
+curl http://localhost:8081/monitoring/dashboard
+```
+
+#### 5. Retraining Automático
+```bash
+# Configurar critérios para retreinamento
+python scripts/setup_monitoring.py --setup-retraining \
+  --performance-threshold 0.8 \
+  --drift-threshold-critical 0.7
+
+# Verificar status do retreinamento automático
+python scripts/setup_monitoring.py --retraining-status
+
+# Forçar retreinamento
+python scripts/setup_monitoring.py --force-retraining
 ```
 
 ## 🚀 Deploy em Produção
