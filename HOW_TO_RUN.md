@@ -3,7 +3,7 @@
 ## 📋 Pré-requisitos
 
 - Python 3.11 ou superior
-- pip ou Poetry instalado
+- pip instalado
 - Git (opcional)
 - Java 17+ (para Apache Spark - ETL)
 
