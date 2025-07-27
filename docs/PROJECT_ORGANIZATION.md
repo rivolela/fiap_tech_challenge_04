@@ -28,7 +28,7 @@ fiap_tech_challenge_04/
 ├── main.py                     # 🚀 Main entry point
 ├── production_inference.py     # 🔮 Inference script (preserved)
 ├── Makefile                    # 🛠️ Project commands
-├── setup.sh                    # ⚡ Setup automation
+├── scripts/setup.sh            # ⚡ Setup automation
 └── README.md                   # 📋 Updated documentation
 ```
 
@@ -98,7 +98,7 @@ python tests/test_api.py
 
 2. **🚀 Easy Development**
    - Single entry point (`main.py`)
-   - Automated setup (`setup.sh`) 
+   - Automated setup (`scripts/setup.sh`) 
    - Standard commands (`Makefile`)
    - Professional structure
 

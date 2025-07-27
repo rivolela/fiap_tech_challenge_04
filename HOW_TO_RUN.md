@@ -12,7 +12,7 @@
 ### Método 1: Script Automático (Recomendado)
 ```bash
 # 1. Execute o script de setup
-./setup.sh
+./scripts/setup.sh
 
 # 2. Execute a API
 python scripts/run_api_server.py
