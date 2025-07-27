@@ -61,17 +61,17 @@ python setup.py
 
 ### Execução
 ```bash
-# Ver comandos disponíveis
-make help
-
 # Iniciar API localmente
-make api
+python scripts/run_api_server.py
 
 # Executar inferência com o modelo treinado
-make inference
+python scripts/production_inference.py
 
 # Executar testes
-make test
+python -m pytest tests/
+
+# Iniciar API em modo de produção (utilizado no Render.com)
+python render_start.py
 ```
 
 ## � Pipeline de Desenvolvimento
@@ -210,10 +210,7 @@ Tokens de acesso podem ser solicitados através do contato com a equipe de desen
 
 ## 👥 Equipe
 
-- Desenvolvedor 1 - Desenvolvedor Full Stack
-- Desenvolvedor 2 - Data Engineer
-- Desenvolvedor 3 - ML Engineer
-- Desenvolvedor 4 - DevOps & Infrastructure
+- Romeu Ivolela Neto - Desenvolvedor Full Stack, Data Engineer, ML Engineer and DevOps & Infrastructure
 
 ## 📄 Licença
 
