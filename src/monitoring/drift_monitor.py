@@ -11,12 +11,12 @@ from evidently.metrics import (
     DataDriftTable,
     # DataQualityPreset,        # REMOVE or comment out
     # RegressionPreset,         # REMOVE or comment out
-    ColumnDriftMetric,
     ColumnQuantileMetric,
     ColumnSummaryMetric,
     DatasetSummaryMetric,
     DatasetDriftMetric,
     DatasetMissingValuesMetric,
+    ColumnDriftMetric,
 )
 import logging
 from typing import Dict, List, Optional, Union, Any
@@ -131,14 +131,25 @@ class DriftMonitor:
         
         # Adicionar métricas de regressão se tiver target
         if has_target:
+            # Only add ColumnDriftMetric for columns that exist in both datasets
+            common_numeric_cols = [col for col in current_data.columns 
+                                  if col in self.reference_data.columns 
+                                  and col not in ['prediction', 'target', 'timestamp']
+                                  and np.issubdtype(current_data[col].dtype, np.number)]
+            
             metrics.extend([
-                ColumnDriftMetric(),
-                ColumnQuantileMetric(),
-                ColumnSummaryMetric(),
+                ColumnQuantileMetric(column_name="preco_medio_close", quantile=0.5),
+                ColumnQuantileMetric(column_name="preco_medio_close", quantile=0.95),
+                ColumnSummaryMetric(column_name="preco_medio_close"),
                 DatasetSummaryMetric(),
                 DatasetDriftMetric(),
                 DatasetMissingValuesMetric(),
             ])
+            
+            # Add ColumnDriftMetric only for existing columns
+            for col in common_numeric_cols:
+                metrics.append(ColumnDriftMetric(column_name=col))
+            
             logger.info("Incluindo métricas de erro de regressão no relatório")
         
         # Gerar relatório

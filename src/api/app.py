@@ -20,7 +20,7 @@ sys.path.insert(0, project_root)
 
 # Import monitoring components
 try:
-    from ..monitoring.middleware import MonitoringMiddleware, get_monitoring_blueprint, monitor_endpoint
+    from ..monitoring.middleware import MonitoringMiddleware, monitor_endpoint
     MONITORING_AVAILABLE = True
 except ImportError:
     MONITORING_AVAILABLE = False

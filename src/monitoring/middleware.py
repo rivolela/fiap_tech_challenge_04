@@ -14,6 +14,9 @@ from flask import request, Response, g
 
 from . import performance_monitor
 from .drift_monitor import DriftMonitor
+from .data_collector import DataCollector
+from .drift_detector import DriftDetector  
+from .report_generator import ReportGenerator
 
 logger = logging.getLogger(__name__)
 
@@ -216,7 +219,8 @@ def get_monitoring_blueprint():
     """
     Cria um Blueprint Flask com endpoints de monitoramento
     """
-    from flask import Blueprint, jsonify
+    from flask import Blueprint, jsonify, request
+    from datetime import datetime
     
     monitoring_bp = Blueprint('monitoring', __name__, url_prefix='/monitoring')
     
@@ -305,4 +309,85 @@ def get_monitoring_blueprint():
             logger.error(f"Erro no dashboard: {e}")
             return jsonify({'error': str(e)}), 500
     
+    @monitoring_bp.route('/drift/report', methods=['POST'])
+    def generate_drift_report():
+        """Generate drift report endpoint"""
+        try:
+            # Get middleware components
+            middleware = get_app_middleware()
+            data_collector = middleware['data_collector']
+            drift_detector = middleware['drift_detector']
+            report_generator = middleware['report_generator']
+            
+            # Get request data
+            request_data = request.get_json()
+            
+            if not request_data:
+                return jsonify({
+                    'message': 'No data provided for drift analysis',
+                    'status': 'error'
+                }), 400
+            
+            reference_data = request_data.get('reference_data')
+            current_data = request_data.get('current_data')
+            config = request_data.get('config', {})
+            
+            if not reference_data or not current_data:
+                return jsonify({
+                    'message': 'Both reference_data and current_data are required',
+                    'status': 'error'
+                }), 400
+            
+            # Collect data
+            data_collector.collect_reference_data(reference_data)
+            data_collector.collect_current_data(current_data)
+            
+            # Detect drift
+            threshold = config.get('threshold', 0.05)
+            methods = config.get('methods', ['statistical', 'distribution'])
+            
+            drift_results = drift_detector.detect_drift(
+                reference_data, 
+                current_data,
+                threshold=threshold,
+                methods=methods
+            )
+            
+            # Generate report
+            metadata = {
+                'reference_samples': len(reference_data) if hasattr(reference_data, '__len__') else 1,
+                'current_samples': len(current_data) if hasattr(current_data, '__len__') else 1,
+                'analysis_timestamp': datetime.now().isoformat(),
+                'config': config
+            }
+            
+            report = report_generator.generate_report(drift_results, metadata)
+            
+            return jsonify(report)
+            
+        except Exception as e:
+            logger.error(f"Error in drift report generation: {e}")
+            return jsonify({
+                'message': f'Drift report generation failed: {str(e)}',
+                'status': 'error'
+            }), 500
+    
     return monitoring_bp
+
+
+def get_logger(name):
+    """Get logger instance"""
+    return logging.getLogger(name)
+
+def get_app_middleware():
+    """
+    Get application middleware for drift detection and reporting.
+    This function should return middleware components needed for drift monitoring.
+    """
+    middleware_components = {
+        'data_collector': DataCollector(),
+        'drift_detector': DriftDetector(),
+        'report_generator': ReportGenerator(),
+        'logger': get_logger('drift_monitoring')
+    }
+    return middleware_components
