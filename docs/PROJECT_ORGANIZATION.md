@@ -61,7 +61,7 @@ make clean          # Clean temp files
 python app/api/main.py
 
 # Production Inference (your original)
-python production_inference.py
+python scripts/production_inference.py
 
 # Model Demo
 python scripts/demo_model_export.py
@@ -73,7 +73,7 @@ python tests/test_api.py
 ### ✅ **What Was Preserved**
 
 - ✅ **Original functionality** - All your existing scripts work
-- ✅ **production_inference.py** - Kept in root for compatibility  
+- ✅ **production_inference.py** - Movido para pasta scripts/  
 - ✅ **src/ml/** structure - Your ML code untouched
 - ✅ **data/**, **outputs/**, **notebooks/** - All preserved
 - ✅ **Dependencies** - Same requirements.txt and pyproject.toml

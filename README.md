@@ -24,6 +24,8 @@ fiap_tech_challenge_04/
 │   ├── ml/                     # Lógica de Machine Learning
 │   └── monitoring/             # Monitoramento de drift e performance
 ├── 📁 scripts/                 # Scripts utilitários
+│   ├── production_inference.py # Script de inferência em produção
+│   └── outros scripts         # Outros scripts utilitários
 ├── 📁 tests/                   # Testes automatizados
 ├── 📁 docs/                    # Documentação do projeto
 ├── 📁 data/                    # Armazenamento de dados
@@ -34,7 +36,6 @@ fiap_tech_challenge_04/
 │   ├── model_export/           # Modelo exportado
 │   └── drift_reports/          # Relatórios de monitoramento
 ├── 📁 notebooks/               # Jupyter notebooks para experimentação
-├── production_inference.py     # Script de inferência em produção
 ├── render_start.py             # Ponto de entrada para o deploy
 ├── setup_monitoring.py         # Configuração do sistema de monitoramento
 ├── Dockerfile.render           # Docker para deploy

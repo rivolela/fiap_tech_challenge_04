@@ -22,7 +22,7 @@ python src/ml/main.py
 python demo_model_export.py
 
 # Production inference
-python production_inference.py
+python scripts/production_inference.py
 ```
 
 ## 📁 Export Structure

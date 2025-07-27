@@ -158,9 +158,9 @@ predictions = result['predictions']
 
 ## 🔧 Integration with Existing Code
 
-### Use with production_inference.py
+### Use with scripts/production_inference.py
 ```python
-# In production_inference.py, you can call the API instead of direct inference:
+# In scripts/production_inference.py, you can call the API instead of direct inference:
 import requests
 
 def call_api_prediction(data):
