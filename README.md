@@ -148,7 +148,12 @@ O modelo treinado é salvo em formato otimizado para produção:
 - Exportação de metadados do modelo (features, hiperparâmetros)
 - Configurações necessárias para inferência em ambiente de produção
 
+#### 3.1 Exportação do Modelo
+```bash
 
+# Verificar modelo exportado
+ls -la outputs/model_export/
+```
 
 ### 4. Deploy do Modelo
 
