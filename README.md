@@ -25,6 +25,7 @@ fiap_tech_challenge_04/
 │   └── monitoring/             # Monitoramento de drift e performance
 ├── 📁 scripts/                 # Scripts utilitários
 │   ├── production_inference.py # Script de inferência em produção
+│   ├── setup_monitoring.py    # Configuração do sistema de monitoramento
 │   └── outros scripts         # Outros scripts utilitários
 ├── 📁 tests/                   # Testes automatizados
 ├── 📁 docs/                    # Documentação do projeto
@@ -37,7 +38,6 @@ fiap_tech_challenge_04/
 │   └── drift_reports/          # Relatórios de monitoramento
 ├── 📁 notebooks/               # Jupyter notebooks para experimentação
 ├── render_start.py             # Ponto de entrada para o deploy
-├── setup_monitoring.py         # Configuração do sistema de monitoramento
 ├── Dockerfile.render           # Docker para deploy
 └── requirements.txt            # Dependências do projeto
 ```

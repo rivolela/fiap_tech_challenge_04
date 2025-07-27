@@ -156,7 +156,7 @@ rate(lstm_predictions_total[1m]) * 60
 #### **1. Configuração Inicial**
 ```bash
 # Executar configuração automática
-python3 setup_monitoring.py
+python3 scripts/setup_monitoring.py
 
 # Iniciar API com monitoramento
 python3 render_start.py
