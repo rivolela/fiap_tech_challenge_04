@@ -95,6 +95,18 @@ Nesta etapa realizamos:
 #### 1.3 Load
 Os dados processados são salvos em formato Parquet na camada 'final', prontos para consumo pelo modelo de Machine Learning.
 
+#### 1.4 ETL Pipeline
+```bash
+# Executar ETL completo
+cd src/etl && python run_etl.py
+
+# Verificar dados transformados
+ls -la data/transformed/
+
+# Ver dados finais
+ls -la data/final/
+```
+
 ### 2. Desenvolvimento do Modelo LSTM
 
 #### 2.1 Arquitetura do Modelo
